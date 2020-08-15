@@ -161,7 +161,8 @@ async function splitImages () {
             for (let x = 0; x > -w; x--) {
                 // Script path relative to index.html
                 const gif = new GIF({
-                    workerScript: 'js/gif.worker.js'
+                    workerScript: 'js/gif.worker.js',
+                    transparent: '#36393F'
                 });
 
                 for (const image of frames) {
@@ -175,7 +176,7 @@ async function splitImages () {
                         ctx.drawImage(image.getImage(), x * size, y * size);
                     }
 
-                    gif.addFrame(section, { copy: true, delay });
+                    gif.addFrame(section, { copy: true, delay / 100 });
                 }
 
                 gif.render();
