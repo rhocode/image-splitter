@@ -184,14 +184,14 @@ async function splitImages () {
                     quality: +qualityInput.value
                 });
 
-                if (stackInput.checked) {
-                    ctx.clearRect(0, 0, size, size);
-                }
+//                 if (stackInput.checked) {
+//                     ctx.clearRect(0, 0, size, size);
+//                 }
                 
                 for (const image of frames) {
-                    if (!stackInput.checked) {
+//                     if (!stackInput.checked) {
                         ctx.clearRect(0, 0, size, size);
-                    }
+//                     }
                     if (image instanceof HTMLElement) {
                         // document.body.appendChild(image);
                         // console.log(image)
@@ -205,7 +205,12 @@ async function splitImages () {
                         usedDelay = 15;
                     }
                     
-                    gif.addFrame(section, { copy: true, delay: usedDelay });
+                    let disposalCode = -1;
+                    if (stackInput.checked) {
+                        disposalCode = 1;
+                    }
+                    
+                    gif.addFrame(section, { copy: true, delay: usedDelay, dispose: disposalCode });
                 }
 
                 gif.render();
