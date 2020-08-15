@@ -14,7 +14,7 @@ const VALID_EXTENSIONS = [
 ]
 
 let txt, previewDiv, prev, shrinkCheck, shrinkCross, fileInfo, stackCross, stackCheck;
-let submit, fileInput, prefixInput, sizeInput, shrinkInput, delayLabel, delayInput, form, download, stackInput;
+let submit, fileInput, prefixInput, sizeInput, shrinkInput, delayLabel, delayInput, form, download, stackInput, qualityInput, qualityLabel;
 let progress, timeTaken;
 
 const section = document.createElement('canvas');
@@ -35,16 +35,19 @@ function init () {
     shrinkInput = $('input#shrink');
     stackInput = $('input#stack');
     delayInput = $('input#delay');
+    qualityInput = $('input#quality');
     fileInput = $('input#file');
     sizeInput = $('input#size');
     submit = $('input#submit');
     delayLabel = $('label[for="delay"]');
+    qualityLabel = $('label[for="quality"]');
     download = $('a');
 
     progress = $('strong');
     timeTaken = $('p');
 
     delayLabel.style.display = delayInput.style.display = 'none';
+    qualityLabel.style.display = qualityInput.style.display = 'none';
 
     form.addEventListener('submit', e => e.preventDefault());
     shrinkInput.addEventListener('click', toggleShrink);
@@ -87,6 +90,7 @@ function handleFileChange () {
     if (!isValidFile(file)) return;
     fileInfo.innerText = file.name;
     delayLabel.style.display = delayInput.style.display = file.name.endsWith('.gif') ? '' : 'none';
+    qualityLabel.style.display = qualityInput.style.display = file.name.endsWith('.gif') ? '' : 'none';
 }
 
 function save () {
@@ -136,7 +140,8 @@ async function splitImages () {
             var frames = await gifFrames({
                 url: URL.createObjectURL(file),
                 frames: 'all',
-                outputType: 'canvas'
+                outputType: 'canvas',
+                quality: qualityInput.value
             });
         } catch (err) {
             fileInfo.innerText = err;
