@@ -13,8 +13,8 @@ const VALID_EXTENSIONS = [
     '.webp'
 ]
 
-let txt, previewDiv, prev, shrinkCheck, shrinkCross, fileInfo;
-let submit, fileInput, prefixInput, sizeInput, shrinkInput, delayLabel, delayInput, form, download;
+let txt, previewDiv, prev, shrinkCheck, shrinkCross, fileInfo, stackCross, stackCheck;
+let submit, fileInput, prefixInput, sizeInput, shrinkInput, delayLabel, delayInput, form, download, stackInput;
 let progress, timeTaken;
 
 const section = document.createElement('canvas');
@@ -24,13 +24,16 @@ function init () {
     txt = $('textarea');
     previewDiv = $('div');
     prev = $('td#preview');
-    shrinkCheck = $('i.fa-check');
-    shrinkCross = $('i.fa-times');
+    shrinkCheck = $('#shrinkCheck');
+    shrinkCross = $('#shrinkCross');
+    stackCross = $('#stackCross');
+    stackCheck = $('#stackCheck');
     fileInfo = $('em');
 
     form = $('form');
     prefixInput = $('input#prefix');
     shrinkInput = $('input#shrink');
+    stackInput = $('input#stack');
     delayInput = $('input#delay');
     fileInput = $('input#file');
     sizeInput = $('input#size');
@@ -45,8 +48,10 @@ function init () {
 
     form.addEventListener('submit', e => e.preventDefault());
     shrinkInput.addEventListener('click', toggleShrink);
+    stackInput.addEventListener('click', toggleStack);
     addEventListeners();
     toggleShrink();
+    toggleStack();
 }
 
 const toBlob = (d) => new Promise((res) => d.toBlob(res));
@@ -64,6 +69,16 @@ function toggleShrink () {
     } else {
         shrinkCross.style.display = '';
         shrinkCheck.style.display = 'none';
+    }
+}
+
+function toggleStack () {
+    if (stackInput.checked) {
+        stackCheck.style.display = '';
+        stackCross.style.display = 'none';
+    } else {
+        stackCross.style.display = '';
+        stackCheck.style.display = 'none';
     }
 }
 
@@ -165,7 +180,15 @@ async function splitImages () {
                     transparent: '#36393F'
                 });
 
+                if (stackInput.checked) {
+                    ctx.clearRect(0, 0, size, size);
+                    ctx.fillRect(0, 0, size, size);
+                }
+                
                 for (const image of frames) {
+                    if (!stackInput.checked) {
+                        ctx.clearRect(0, 0, size, size);
+                    }
                     ctx.clearRect(0, 0, size, size);
                     if (image instanceof HTMLElement) {
                         // document.body.appendChild(image);
