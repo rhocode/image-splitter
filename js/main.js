@@ -164,10 +164,9 @@ async function splitImages () {
                     workerScript: 'js/gif.worker.js'
                 });
 
-                ctx.clearRect(0, 0, size, size);
-                ctx.fillRect(0, 0, size, size);
-
                 for (const image of frames) {
+                    ctx.clearRect(0, 0, size, size);
+                    ctx.fillRect(0, 0, size, size);
                     if (image instanceof HTMLElement) {
                         // document.body.appendChild(image);
                         // console.log(image)
