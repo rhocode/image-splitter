@@ -135,6 +135,7 @@ async function splitImages () {
     if (file.name.endsWith('.gif')) {
         // Is the image a gif?
 
+        console.log("Quality:", qualityInput.value);
         try {
             // Create array of frames of the provided gif
             var frames = await gifFrames({
