@@ -135,14 +135,15 @@ async function splitImages () {
     if (file.name.endsWith('.gif')) {
         // Is the image a gif?
 
-        console.log("Quality:", qualityInput.value);
+        console.log("Quality:", +qualityInput.value);
+        console.log("Quality:", parseInt(qualityInput.value, 10));
         try {
             // Create array of frames of the provided gif
             var frames = await gifFrames({
                 url: URL.createObjectURL(file),
                 frames: 'all',
                 outputType: 'canvas',
-                quality: qualityInput.value
+                quality: +qualityInput.value
             });
         } catch (err) {
             fileInfo.innerText = err;
