@@ -175,7 +175,12 @@ async function splitImages () {
                         ctx.drawImage(image.getImage(), x * size, y * size);
                     }
 
-                    gif.addFrame(section, { copy: true, delay });
+                    let usedDelay = delay;
+                    if (delay < 15) {
+                        usedDelay = 15;
+                    }
+                    
+                    gif.addFrame(section, { copy: true, delay: usedDelay });
                 }
 
                 gif.render();
