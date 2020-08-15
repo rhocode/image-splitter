@@ -134,6 +134,16 @@ label[for="shrink"] {
     user-select: none;
 }
 
+input#stack {
+    opacity: 0;
+    position: absolute;
+}
+
+label[for="stack"] {
+    cursor: pointer;
+    user-select: none;
+}
+
 i.fa-check {
     color: rgb(7, 219, 7);
 }
