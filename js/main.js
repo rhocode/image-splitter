@@ -176,8 +176,7 @@ async function splitImages () {
             for (let x = 0; x > -w; x--) {
                 // Script path relative to index.html
                 const gif = new GIF({
-                    workerScript: 'js/gif.worker.js',
-                    transparent: '#36393F'
+                    workerScript: 'js/gif.worker.js'
                 });
 
                 if (stackInput.checked) {
