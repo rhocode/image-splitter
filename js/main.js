@@ -134,16 +134,13 @@ async function splitImages () {
 
     if (file.name.endsWith('.gif')) {
         // Is the image a gif?
-
-        console.log("Quality:", +qualityInput.value);
-        console.log("Quality:", parseInt(qualityInput.value, 10));
+        
         try {
             // Create array of frames of the provided gif
             var frames = await gifFrames({
                 url: URL.createObjectURL(file),
                 frames: 'all',
-                outputType: 'canvas',
-                quality: +qualityInput.value
+                outputType: 'canvas'
             });
         } catch (err) {
             fileInfo.innerText = err;
@@ -183,7 +180,8 @@ async function splitImages () {
             for (let x = 0; x > -w; x--) {
                 // Script path relative to index.html
                 const gif = new GIF({
-                    workerScript: 'js/gif.worker.js'
+                    workerScript: 'js/gif.worker.js',
+                    quality: +qualityInput.value
                 });
 
                 if (stackInput.checked) {
