@@ -188,7 +188,6 @@ async function splitImages () {
                     if (!stackInput.checked) {
                         ctx.clearRect(0, 0, size, size);
                     }
-                    ctx.clearRect(0, 0, size, size);
                     if (image instanceof HTMLElement) {
                         // document.body.appendChild(image);
                         // console.log(image)
